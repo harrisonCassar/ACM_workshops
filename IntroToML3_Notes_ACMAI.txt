@@ -1,0 +1,109 @@
+Linear Regression
+ACM AI | Intro to ML: Beginner Track #3
+
+-partial derivatives
+	-take derivative with only one of the variable (rest of variables treated as a constant)
+	-2-variable functions easy to visualize (like a gradient slope graph/sheet/3D curve) with a 3D graph (3rd dimension is your dependent variable, your result from your 2-variable function)
+		-entire curve can be formed by essentially treating one variable as constant, and graphing derivative of result as a 2d graph ("a slice of the total sheet")
+
+-gradient is telling you how your individual variables have to change in order to get to your highest points
+	-lives in the dimensions determine by the number of variables you have
+		-i.e. f(x,y) --> gradient lives in xy-plane
+
+-gradient descent --> opposite of gradient ascent
+	-take the negative of the gradient
+
+-high-level concepts
+	-learn a function that we can input all of these different variables and can output a result that is close to correct based off of past data/results
+	-traditional vs ML approach
+		-traditional: data given, program made, computation done, results there
+		-ML: data given, results (a ton of them) given, computation done, program/function made
+			-learning weights to be given to each "variable" or "feature" (learn some sort of pattern of input to give best accurate results)
+		-ESSENTIALLY ML IS "LEARNING" FUNCTION BY REGRESSION
+	-"feature" = some property of the object that we are working with (i.e. for houses: square footage, or number of bathrooms)
+	-"target/label" = true value of what we are trying to predict
+	-"supervised learning" = code is programmed to know what data inputs should be considered
+		-we told our model what the right answer was
+		-two types:
+			-regression: map input to continuous output (what magnitude is this input; 1? 2? 500? etc.)
+			-classification: output labels (determine what type is this input; this or that)
+	-"unsupervised learning" = code is left to learn for itself what data inputs should be important/considered
+	
+	-differences between supervised vs unsupervised
+		-supervised:
+			-both input and label avaiable
+			-goal is approx a mapping function (hypothesis)
+			-majority of ML applications are supervised
+
+		-unsupervised:
+			-only input avaiable
+			-goal is to understand underlying structure of data
+			-applications are more advanced
+
+-ML pipeline
+	-input data --> more data, the better
+	-preprocessing --> scaling data, removing outliers, etc.
+	-training --> choosing the function and representing the data in that form; training data is used to develop model
+	-testing --> evalutating the model using testing data (show it new houses that has never been seen before; we want to see how accurate our model is IN REALITY, not just on the specific data that we included)
+		-don't want to "overfit" data; want to generalize patterns
+	-interpretation
+
+-in training phase:
+	-"hypothesis" = modeling pattern function
+		-h(x1,x2,...,xn) = w0 + w1x1 + w2x2 + ... + wnxn
+			-each w is a weight for each input (w0 being the )
+	-initial model --> we get to choose
+		-certain inputs may increase result, while others may decrease
+			-i.e. linear in the case of simple house price results
+			-linear, quadratic, etc.
+	-data inputted has values for each variable AND the result
+		-model be formed
+		-i.e.	1 --> 3, 2000, 0 = 300
+				2 --> 2, 8000, 1 = 272
+				3 --> 4, 5500, 2 = 450
+				...
+			-certain data input variables may be have to assigned arbitrary values (i.e. neighborhoods given values 0, 1, 2, etc.); model would have to figure out which arbitrary value would be home to more valuable houses, for example
+	-Loss function: a function that quantifies the error in your output
+		-we will go with the Mean Squared Error (MSE)
+			-(1/2m) * summation of (actual_value - output_of_model_prediction)^2 for all of your 
+				-will result in "overall error"
+
+		-WANT TO MAKE OUTPUT OF LOSS FUNCTION AS SMALL AS POSSIBLE, as this means our model is outputting the most accurate results it can
+			-"good model" --> value of loss function is small
+			-need to find the value of the weights for which the loss is minimized
+
+
+	-while in training --> your inputs are essentialy fixed
+		-therefore your "hypothesis"/"function"/"model" is trying to change the weights
+	-after training and testing --> your weights are essentially fixed (will be inputting new inputs/data)
+
+	-minimize loss using gradient descent
+		-gradient would be essentially a vector pointing in the direction of the combination of weights that result in the LOWEST amount of loss
+
+	-mini-batches
+		-expensive computation-wise to use all input data at once
+			-therefore use mini-batches and peform loss on those
+			-take different mini-batches to compute loss and update weights
+
+	-best-fit
+		-finding best-fit curve for your data
+			-changing individual weights to get a best-fit line/curve for data
+				-i.e. for linear, changing y-intercept and slope
+
+-testing
+	-use NEW data to test accuracy of model
+		-80% of data for training, 20% for testing
+	-overfitting
+		-fitting training data too well; not able to generalize
+	-underfitting
+		-training accuracy and test accurary are both low
+		-sign that our model OR data must change
+	-SEARCH OVERFITTING VS UNDERFITTING ON GOOGLE IMAGES; 3 graphs, showing best-fit models
+
+	-rule-of-thumb: program for overfitting first; fix testing accuracy later (usually overfitting means you are on the right track)
+
+	-how to combat overfitting
+		-"regularization" --> one such method
+			-way to place a cap on the values the weights can take; greater the weights, the more the loss
+		-getting more training data is always a plus
+
