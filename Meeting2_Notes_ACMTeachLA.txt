@@ -1,0 +1,99 @@
+ACM Teach LA
+Meeting 2
+
+-markup languages --> XML, HTML
+
+-React components:
+	-3 main parts:
+		-state
+		-render (what actually shows up on the page)
+		-member functions
+	-way to break down major things into smaller parts
+		-and smaller parts
+			-and even smaller parts
+	-extension --> adding functionality to a base class
+		-i.e. ANIMAL CLASS can be extended by a PENGUIN
+	-constructor (how the object is when you make one)
+		-requires:
+			-super(props) --> required in all constructors
+			-this.state --> is what the constructor
+				-state is what each component keeps track of itself
+				-local to itself; therefore other components only know IF you tell them)
+				-STATE CAN ONLY BE PASSED DOWN (therefore, if you want someone to go to another component, they must have a common ancestor)
+					-therefore, i.e., if a header has to add to a to-do list, then it should have the "todo list" component at its level
+
+	-each interactive element
+
+
+
+
+-dictionary: a black box where you put an input and get an output value
+	-typeless
+	-enter a key
+		-get the corresponding answer/output that is in a dictionary
+		-if unknown key, then outputs --> undefined (or null, can't remember)
+
+-falsey values --> false, null, undefined, "", 0
+
+-currying
+	let a = (a,b) -> {return a+b}
+	let b = a(5)
+			same as --> = (b) => {a(5)}
+
+	-essentially you are creating a new function "b" that is asking you to fill in the remaining paramters of a
+		-can do "let b = a" --> basically just another function that does the same thing as a
+
+==============================================================================================================================================================
+
+
+import React from 'react'
+import Header from './Header.js'
+import TodoList from './Todolist.js'
+import Footer from './Footer.js'
+
+
+
+
+class App extends React.Component {
+	constructors(props){
+		super(props)
+		this.state ={
+			todoList:[],
+			filter:"all",
+		}
+	}
+
+	addToTodoList = (todoName) => { 				//function needs parameter BECAUSE we want to customize what to put in
+									    		//must have it syncrous
+		let newTodo = {
+			//name, active/not, 
+			name: todoName, 
+			active: true, 
+			editing: false
+		}
+
+		this.state.todoList.append(newTodo)
+
+		this.setState({
+			todoList: tempArray
+		}								//ensure syncrousness is done (setState is made sure that all updates are queued and done in order (i.e. big apps mean lots of stuff))
+
+	}
+
+	render(){									//don't need to declare its a function or its type lol 
+		<div>										//WHATEVER YOU RETURN is what will be rendered; whatever you return
+			<Header 
+													//similar to HTML, write name of prop and set it equal to a value
+				addTodo={this.addToToDoList}					//WHEN HEADER IS IN RENDER, IT WILL ESSENTIALLY COPY AND PASTE THE RENDER
+															//since you are making your own components, you are making your own properties									
+			/>											//NOT JUST PUT Header Footer and TodoList (this would just print strings); YOU HAVE TO HAVE THEM AS TAGS
+			<Footer/>
+			<TodoList
+				list={this.state.todoList}				//this will pass todoList state to 
+
+			/>											//each must be imported a file that references that 
+		</div>
+	}     
+}
+
+
