@@ -1,0 +1,75 @@
+Linear Regression
+ACM AI | Intro to ML: Beginner Track #4
+
+-recap
+	-linear model: h(x1,x2,x3...,xn) = w0 + w1x1 + w2x2 + ... + wnxn
+		-x's are different features (or inputs)
+		-w's are different weights for each feature (weights are the learnable parameters of the model, where weights alter the hypothsis model
+	-using "Mean-Squared Error" (y-hat is the output of model, while y is the actual value or target)
+	-gradient descent on loss function to determine how to change each of the weights
+		-dL/dw
+		-learning rate's should tend to begin with 0.1, 0.5 (smaller is better to start off with to make sure you don't over shoot your value)
+	-loops take up a lot of times, and therefore want to use vectorization
+		-through matrices (multi-dimensional array of elements (like a table))
+
+-vectorizing our model
+	-each training sample has n features: x1, x2, x3, ..., xn
+	-in total we have m training examples
+
+	-table: 1 row or column --> feature for every training sample; other --> training example
+			-for sake of workshop: row = features, while column = training samples (x[1][9] --> x[n][m]); nxm table for array
+
+	-weight values can be vectorized too
+			-one column, each row is a different weight (for each feature)
+			-w0 is the "bias" pr 'b'--> not in our vector
+
+
+	-TWO TABLES OF DATA:
+			-X and w --> (nx1 dimensions for w, and nxm dimensions for X)
+			-w.T --> transposing w in order to be able to multiply the two vectorizations
+
+			-vectorized form of our hypothesis, cost function: h(X) = w.T times X + b <--- our bias
+
+	-vectorizing weight/bias updates
+
+-"numpy" baiscs (for array manipulation)
+	-arr1.shape --> returns dimensions of numpy array
+	-arr1.shape[1] --> number of columns
+	-arr1.T --> transpose of an array
+	-np.dot(arr1,arr2) --> matrix multiplication
+	-np.sum(arr1) --> sums all elements in an array
+
+
+Start coding with Google Colab (with python 3 notebook from acmai's workshop 4 github):
+-pandas --> library for table manipulation
+-plt --> plotting and data visualization (this is just for seeing trends before ML implementation)
+
+-drop 'price' because we want to use that as our output, NOT OUR INPUT
+-split our avaiable data to be some train, some test
+	-convert it to a numpy array
+
+-intialize array of weights and a bias scalar to 0, as they will be learned, but we still need the variables intialized for future use
+
+-steps
+	-input hypothesis
+	-check cost function with outputs
+	-re-adjust
+
+-m = X.shape[1] --> number of training samples
+
+-"numpy" allows for efficient and easy array manipulation
+	-allows for:
+		-scalar being added to all elements in array
+		-vectors being saved into a variable
+		-adding vectors (can be thought of as arrays) to each other
+		-
+
+-forward propagation
+	-calculate activation and cost
+
+-backward propagation (to find gradient)
+	-calculate dw and db (essentially reducing our cost and moving cloer to a loss of 0 by altering our bias and weights)
+	-process we use to update our weights vias by a small amount so that our model gets a little better at making predictions
+		-w = w - (learning rate)*(dw)
+		-b = b - (learning rate)*(db)
+	-goal is to optimize w and b by running a gradient descent algorithm
