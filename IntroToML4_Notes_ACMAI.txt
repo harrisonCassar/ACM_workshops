@@ -73,3 +73,5 @@ Start coding with Google Colab (with python 3 notebook from acmai's workshop 4 g
 		-w = w - (learning rate)*(dw)
 		-b = b - (learning rate)*(db)
 	-goal is to optimize w and b by running a gradient descent algorithm
+
+-RSME --> square root of mean squared error
